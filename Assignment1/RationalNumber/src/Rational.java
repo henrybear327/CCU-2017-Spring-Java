@@ -1,12 +1,31 @@
 import java.math.BigDecimal;
-import java.util.Spliterator;
+
+import sun.util.logging.resources.logging;
 
 public class Rational {
 	private int numerator;
 	private int denominator;
 	
 	private int gcd(int a, int b) {
+		a = Math.abs(a);
+		b = Math.abs(b);
 		return b == 0 ? a : gcd(b, a % b);
+	}
+	
+	public void setNumerator(int numerator) {
+		this.numerator = numerator;
+	}
+	
+	public void setDenominator(int denominator) {
+		this.denominator = denominator;
+	}
+	
+	public int getNumerator() {
+		return this.numerator;
+	}
+	
+	public int getDenominator() {
+		return this.denominator;
 	}
 	
 	public Rational() {
@@ -58,12 +77,49 @@ public class Rational {
 		return result.toString();
 	}
 	
-	public static void main(String[] args) {
-		Rational rational1 = new Rational();
-		Rational rational2 = new Rational("7/3");
-		Rational rational3 = new Rational(15, 10);
+	public static Rational add(Rational a, Rational b) {
+		int lower = a.getDenominator() * b.getDenominator();
+		int upper = a.getNumerator() * b.getDenominator() + b.getNumerator() * a.getDenominator();
 		
+		return new Rational(upper, lower);
+	}
+	
+	public static Rational subtract(Rational a, Rational b) {
+		int lower = a.getDenominator() * b.getDenominator();
+		int upper = a.getNumerator() * b.getDenominator() - b.getNumerator() * a.getDenominator();
+		
+		return new Rational(upper, lower);
+	}
+	
+	public static Rational multiply(Rational a, Rational b) {
+		int lower = a.getDenominator() * b.getDenominator();
+		int upper = a.getNumerator() * b.getNumerator();
+		
+		return new Rational(upper, lower);
+	}
+	
+	public static Rational divide(Rational a, Rational b) {
+		// (a / b) / (c / d) = (a / b) * (d / c)
+		int lower = a.getDenominator() * b.getNumerator(); 
+		int upper = b.getDenominator() * a.getNumerator();
+		
+		return new Rational(upper, lower);
+	}
+	
+	public static void main(String[] args) {
+		// Rational rational1 = new Rational();
+		Rational rational2 = new Rational("9/7");
+		Rational rational3 = new Rational(11, 2);
+		
+		System.out.println(rational2.toString());
 		System.out.println(rational3.toString());
-		System.out.println(rational3.toDouble(0));
+		
+		System.out.println(rational2.toDouble(6));
+		System.out.println(rational3.toDouble(6));
+		
+		System.out.println(Rational.add(rational2, rational3).toString());
+		System.out.println(Rational.subtract(rational2, rational3).toString());
+		System.out.println(Rational.multiply(rational2, rational3).toString());
+		System.out.println(Rational.divide(rational2, rational3).toString());
 	}
 }
