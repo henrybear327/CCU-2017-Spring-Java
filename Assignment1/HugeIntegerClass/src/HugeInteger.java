@@ -2,6 +2,11 @@ import java.util.Arrays;
 
 // click on "default package" and click the "play button" to run the program
 
+// Questions:
+// 1. Do we need to implement multiply, divide, and remainder?
+// 2. public boolean isEqualTo(HugeInteger other) or public boolean isEqualTo(HugeInteger a, HugeInteger b)
+// 3. Handle negative number, overflow?
+
 public class HugeInteger{
 	boolean isPositive;
 	private int[] numberArray;
@@ -63,38 +68,39 @@ public class HugeInteger{
 		return null;
 	}
 	
-	public boolean isEqualTo(HugeInteger a, HugeInteger b) {
+	public boolean isEqualTo(HugeInteger other) {
 		return false;
 	}
 	
-	public boolean isNotEqualTo(HugeInteger a, HugeInteger b) {
+	public boolean isNotEqualTo(HugeInteger other) {
 		return false;
 	}
 	
-	public boolean isGreaterThan(HugeInteger a, HugeInteger b) {
+	public boolean isGreaterThan(HugeInteger other) {
 		return false;
 	}
 	
-	public boolean isLessThan(HugeInteger a, HugeInteger b) {
+	public boolean isLessThan(HugeInteger other) {
 		return false;
 	}
 	
-	public boolean isGreaterThanOrEqualTo(HugeInteger a, HugeInteger b) {
+	public boolean isGreaterThanOrEqualTo(HugeInteger other) {
 		return false;
 	}
 	
-	public boolean isLessThanOrEqualTo(HugeInteger a, HugeInteger b) {
+	public boolean isLessThanOrEqualTo(HugeInteger other) {
 		return false;
 	}
 	
-	public boolean isZero(HugeInteger a, HugeInteger b) {
+	public boolean isZero() {
+		int count = 0;
 		for(int i = 0; i < ARRAY_SIZE; i++) {
-			if(this.numberArray[i] != 0)
-				return false;
+			if(this.numberArray[i] == 0)
+				count++;
 		}
-		return true;
+		return count == ARRAY_SIZE;
 	}
-
+	
 	public static void main(String[] args) {
 		HugeInteger a = new HugeInteger();
 		
@@ -104,5 +110,14 @@ public class HugeInteger{
 		System.out.println(aString);
 		if(a.toString().compareTo(aString) != 0) 
 			throw new RuntimeException("String differs");
+		if(a.isZero() == true) 
+			throw new RuntimeException("isZero() is broken");
+		
+		String zeroString = "0";
+		HugeInteger zero = new HugeInteger();
+		zero.parse(zeroString);
+		if(zero.isZero() == false) 
+			throw new RuntimeException("isZero() is broken");	
+		
 	}
 }
