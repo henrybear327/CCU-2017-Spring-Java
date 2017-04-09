@@ -54,10 +54,10 @@ public class HugeInteger{
 		return result.length() == 0 ? "0" : result;
 	}
 
-	public HugeInteger add(HugeInteger a, HugeInteger b) {
+	public HugeInteger add(HugeInteger other) {
 		HugeInteger result = new HugeInteger();
 		for(int i = 0; i < ARRAY_SIZE; i++) {
-			result.numberArray[i] += a.numberArray[i] + b.numberArray[i];
+			result.numberArray[i] += this.numberArray[i] + other.numberArray[i];
 			if(i + 1 < ARRAY_SIZE) {
 				result.numberArray[i + 1] = result.numberArray[i] / 10;
 				result.numberArray[i] %= 10;
@@ -67,7 +67,7 @@ public class HugeInteger{
 		return result;
 	}
 
-	public HugeInteger substract(HugeInteger a, HugeInteger b) {
+	public HugeInteger subtract(HugeInteger other) {
 		HugeInteger result = new HugeInteger();
 		for(int i = 0; i < ARRAY_SIZE; i++) {
 			
@@ -76,7 +76,7 @@ public class HugeInteger{
 		return result;
 	}
 	
-	public HugeInteger multiply(HugeInteger a, HugeInteger b) {
+	public HugeInteger multiply(HugeInteger other) {
 		HugeInteger result = new HugeInteger();
 		for(int i = 0; i < ARRAY_SIZE; i++) {
 			
@@ -85,7 +85,7 @@ public class HugeInteger{
 		return result;
 	}
 	
-	public HugeInteger divide(HugeInteger a, HugeInteger b) {
+	public HugeInteger divide(HugeInteger other) {
 		HugeInteger result = new HugeInteger();
 		for(int i = 0; i < ARRAY_SIZE; i++) {
 			
@@ -94,7 +94,7 @@ public class HugeInteger{
 		return result;
 	}
 	
-	public HugeInteger remainder(HugeInteger a, HugeInteger b) {
+	public HugeInteger remainder(HugeInteger b) {
 		return null;
 	}
 	
