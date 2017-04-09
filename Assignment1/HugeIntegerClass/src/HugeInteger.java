@@ -8,14 +8,13 @@ import java.util.Arrays;
 // 3. Handle negative number, overflow?
 
 public class HugeInteger{
-	boolean isPositive;
-	private int[] numberArray;
+	public int[] numberArray;
 	
 	final int ARRAY_SIZE = 40;
 
 	public HugeInteger() {
 		this.numberArray = new int[ARRAY_SIZE];
-		isPositive = true;
+		Arrays.fill(this.numberArray, 0);
 	}
 
 	private int charToInt(char c) {
@@ -28,13 +27,8 @@ public class HugeInteger{
 		}
 
 		Arrays.fill(this.numberArray, 0);
-		isPositive = true;
 		
 		for (int i = inp.length() - 1; i >= 0; i--) {
-			if(inp.charAt(i) == '-') {
-				isPositive = false;
-				continue;
-			}
 			numberArray[inp.length() - 1 - i] = this.charToInt(inp.charAt(i));
 		}
 		
@@ -47,7 +41,7 @@ public class HugeInteger{
 	}
 
 	public String toString() {
-		String result = (isPositive ? "" : "-");
+		String result = "";
 		
 		int i;
 		for (i = ARRAY_SIZE - 1; i >= 0; i--)
@@ -57,14 +51,50 @@ public class HugeInteger{
 		for(; i >= 0; i--)
 			result += String.valueOf(numberArray[i]);
 		
-		return result;
+		return result.length() == 0 ? "0" : result;
 	}
 
 	public HugeInteger add(HugeInteger a, HugeInteger b) {
-		return null;
+		HugeInteger result = new HugeInteger();
+		for(int i = 0; i < ARRAY_SIZE; i++) {
+			result.numberArray[i] += a.numberArray[i] + b.numberArray[i];
+			if(i + 1 < ARRAY_SIZE) {
+				result.numberArray[i + 1] = result.numberArray[i] / 10;
+				result.numberArray[i] %= 10;
+			}
+		}
+		
+		return result;
 	}
 
 	public HugeInteger substract(HugeInteger a, HugeInteger b) {
+		HugeInteger result = new HugeInteger();
+		for(int i = 0; i < ARRAY_SIZE; i++) {
+			
+		}
+		
+		return result;
+	}
+	
+	public HugeInteger multiply(HugeInteger a, HugeInteger b) {
+		HugeInteger result = new HugeInteger();
+		for(int i = 0; i < ARRAY_SIZE; i++) {
+			
+		}
+		
+		return result;
+	}
+	
+	public HugeInteger divide(HugeInteger a, HugeInteger b) {
+		HugeInteger result = new HugeInteger();
+		for(int i = 0; i < ARRAY_SIZE; i++) {
+			
+		}
+		
+		return result;
+	}
+	
+	public HugeInteger remainder(HugeInteger a, HugeInteger b) {
 		return null;
 	}
 	
@@ -99,25 +129,5 @@ public class HugeInteger{
 				count++;
 		}
 		return count == ARRAY_SIZE;
-	}
-	
-	public static void main(String[] args) {
-		HugeInteger a = new HugeInteger();
-		
-		String aString = "8287364782348182394234682736480006283468";
-		a.parse(aString);
-		System.out.println(a.toString());
-		System.out.println(aString);
-		if(a.toString().compareTo(aString) != 0) 
-			throw new RuntimeException("String differs");
-		if(a.isZero() == true) 
-			throw new RuntimeException("isZero() is broken");
-		
-		String zeroString = "0";
-		HugeInteger zero = new HugeInteger();
-		zero.parse(zeroString);
-		if(zero.isZero() == false) 
-			throw new RuntimeException("isZero() is broken");	
-		
 	}
 }
