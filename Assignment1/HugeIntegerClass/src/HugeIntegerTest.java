@@ -22,25 +22,28 @@ public class HugeIntegerTest {
 			throw new RuntimeException("isZero() is broken");
 
 		// testing
-		for (int i = 1; i <= 10; i++) {
-			System.out.println("Round " + Integer.toString(i) + ". Generating two random numbers...");
+		long mod = 1;
+		for (int i = 0; i <= 18; i++) {
+			System.out.println("Round " + Integer.toString(i) + ". Generating two random numbers...\n");
 			SecureRandom rnd = new SecureRandom();
-			long num1 = Math.abs(rnd.nextLong()), num2 = Math.abs(rnd.nextLong());
+			long num1 = Math.abs(rnd.nextLong()) % mod, num2 = Math.abs(rnd.nextLong()) % mod;
 			if (num1 < num2) {
 				final long tmp = num1;
 				num1 = num2;
 				num2 = tmp;
 			}
+			mod *= 10;
 
-			// addition
 			BigInteger first = new BigInteger(Long.toString(num1));
 			BigInteger second = new BigInteger(Long.toString(num2));
-			BigInteger result = first.add(second);
 
 			HugeInteger myFirst = new HugeInteger();
 			HugeInteger mySecond = new HugeInteger();
 			myFirst.parse(Long.toString(num1));
 			mySecond.parse(Long.toString(num2));
+
+			// addition
+			BigInteger result = first.add(second);
 			HugeInteger myResult = myFirst.add(mySecond);
 
 			if (result.toString().equals(myResult.toString()) == false) {
@@ -57,14 +60,7 @@ public class HugeIntegerTest {
 			System.out.println("");
 
 			// subtraction
-			first = new BigInteger(Long.toString(num1));
-			second = new BigInteger(Long.toString(num2));
 			result = first.subtract(second);
-
-			myFirst = new HugeInteger();
-			mySecond = new HugeInteger();
-			myFirst.parse(Long.toString(num1));
-			mySecond.parse(Long.toString(num2));
 			myResult = myFirst.subtract(mySecond);
 
 			if (result.toString().equals(myResult.toString()) == false) {
@@ -81,14 +77,7 @@ public class HugeIntegerTest {
 			System.out.println("");
 
 			// multiplication
-			first = new BigInteger(Long.toString(num1));
-			second = new BigInteger(Long.toString(num2));
 			result = first.multiply(second);
-
-			myFirst = new HugeInteger();
-			mySecond = new HugeInteger();
-			myFirst.parse(Long.toString(num1));
-			mySecond.parse(Long.toString(num2));
 			myResult = myFirst.multiply(mySecond);
 
 			if (result.toString().equals(myResult.toString()) == false) {
@@ -105,24 +94,56 @@ public class HugeIntegerTest {
 			System.out.println("");
 
 			// division
-			first = new BigInteger(Long.toString(num1));
-			second = new BigInteger(Long.toString(num2));
-			result = first.multiply(second);
+			boolean hasDivisionError = false;
+			try {
+				result = first.divide(second);
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+				hasDivisionError = true;
+			}
+			try {
+				myResult = myFirst.divide(mySecond);
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+				hasDivisionError = true;
+			}
 
-			myFirst = new HugeInteger();
-			mySecond = new HugeInteger();
-			myFirst.parse(Long.toString(num1));
-			mySecond.parse(Long.toString(num2));
-			myResult = myFirst.multiply(mySecond);
-
-			if (result.toString().equals(myResult.toString()) == false) {
+			if (hasDivisionError || result.toString().equals(myResult.toString()) == false) {
 				System.err.println("Division test failed");
 				System.err.println(first.toString() + " / " + second.toString() + " !=\n" + myFirst.toString() + " / "
 						+ mySecond.toString());
-				System.err.println(result.toString() + " !=\n" + myResult.toString());
+				// System.err.println(result.toString() + " !=\n" + myResult.toString());
 			} else {
 				System.out.println("Division test passed");
 				System.out.println(first.toString() + " / " + second.toString() + " =\n" + myFirst.toString() + " / "
+						+ mySecond.toString());
+				System.out.println(result.toString() + " =\n" + myResult.toString());
+			}
+			System.out.println("");
+
+			// remainder
+			hasDivisionError = false;
+			try {
+				result = first.remainder(second);
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+				hasDivisionError = true;
+			}
+			try {
+				myResult = myFirst.remainder(mySecond);
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+				hasDivisionError = true;
+			}
+
+			if (hasDivisionError || result.toString().equals(myResult.toString()) == false) {
+				System.err.println("Remainder test failed");
+				System.err.println(first.toString() + " % " + second.toString() + " !=\n" + myFirst.toString() + " % "
+						+ mySecond.toString());
+				// System.err.println(result.toString() + " !=\n" + myResult.toString());
+			} else {
+				System.out.println("Remainder test passed");
+				System.out.println(first.toString() + " % " + second.toString() + " =\n" + myFirst.toString() + " % "
 						+ mySecond.toString());
 				System.out.println(result.toString() + " =\n" + myResult.toString());
 			}

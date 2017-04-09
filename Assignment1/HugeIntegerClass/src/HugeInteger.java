@@ -86,6 +86,10 @@ public class HugeInteger{
 	}
 	
 	public HugeInteger divide(HugeInteger other) {
+		if (other.isZero()) {
+			throw new RuntimeException("Divide by zero is not acceptable");
+		}
+		
 		HugeInteger result = new HugeInteger();
 		for(int i = 0; i < ARRAY_SIZE; i++) {
 			
@@ -94,8 +98,17 @@ public class HugeInteger{
 		return result;
 	}
 	
-	public HugeInteger remainder(HugeInteger b) {
-		return null;
+	public HugeInteger remainder(HugeInteger other) {
+		if (other.isZero()) {
+			throw new RuntimeException("Divide by zero is not acceptable");
+		}
+		
+		HugeInteger result = new HugeInteger();
+		for(int i = 0; i < ARRAY_SIZE; i++) {
+			
+		}
+		
+		return result;
 	}
 	
 	public boolean isEqualTo(HugeInteger other) {
