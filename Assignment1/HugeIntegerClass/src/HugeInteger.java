@@ -2,11 +2,6 @@ import java.util.Arrays;
 
 // click on "default package" and click the "play button" to run the program
 
-// Questions:
-// 1. Do we need to implement multiply, divide, and remainder?
-// 2. public boolean isEqualTo(HugeInteger other) or public boolean isEqualTo(HugeInteger a, HugeInteger b)
-// 3. Handle negative number, overflow?
-
 public class HugeInteger {
 	public int[] numberArray;
 	final int ARRAY_SIZE = 40;

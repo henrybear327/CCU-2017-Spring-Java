@@ -30,12 +30,14 @@ public class HugeIntegerTest {
 					+ mySecond.toString());
 			System.err.println(result.toString() + " !=\n" + myResult.toString());
 		} else {
-//			System.out.println("Addition test passed");
-//			System.out.println(first.toString() + " + " + second.toString() + " =\n" + myFirst.toString() + " + "
-//					+ mySecond.toString());
-//			System.out.println(result.toString() + " =\n" + myResult.toString());
+			// System.out.println("Addition test passed");
+			// System.out.println(first.toString() + " + " + second.toString() +
+			// " =\n" + myFirst.toString() + " + "
+			// + mySecond.toString());
+			// System.out.println(result.toString() + " =\n" +
+			// myResult.toString());
 		}
-		System.out.println("");
+		// System.out.println("");
 	}
 
 	private void testSubtract(BigInteger first, BigInteger second, HugeInteger myFirst, HugeInteger mySecond) {
@@ -48,12 +50,14 @@ public class HugeIntegerTest {
 					+ mySecond.toString());
 			System.err.println(result.toString() + " !=\n" + myResult.toString());
 		} else {
-//			System.out.println("Subtraction test passed");
-//			System.out.println(first.toString() + " - " + second.toString() + " =\n" + myFirst.toString() + " - "
-//					+ mySecond.toString());
-//			System.out.println(result.toString() + " =\n" + myResult.toString());
+			// System.out.println("Subtraction test passed");
+			// System.out.println(first.toString() + " - " + second.toString() +
+			// " =\n" + myFirst.toString() + " - "
+			// + mySecond.toString());
+			// System.out.println(result.toString() + " =\n" +
+			// myResult.toString());
 		}
-		System.out.println("");
+		// System.out.println("");
 	}
 
 	private void testMultiply(BigInteger first, BigInteger second, HugeInteger myFirst, HugeInteger mySecond) {
@@ -66,12 +70,14 @@ public class HugeIntegerTest {
 					+ mySecond.toString());
 			System.err.println(result.toString() + " !=\n" + myResult.toString());
 		} else {
-//			System.out.println("Multiplication test passed");
-//			System.out.println(first.toString() + " * " + second.toString() + " =\n" + myFirst.toString() + " * "
-//					+ mySecond.toString());
-//			System.out.println(result.toString() + " =\n" + myResult.toString());
+			// System.out.println("Multiplication test passed");
+			// System.out.println(first.toString() + " * " + second.toString() +
+			// " =\n" + myFirst.toString() + " * "
+			// + mySecond.toString());
+			// System.out.println(result.toString() + " =\n" +
+			// myResult.toString());
 		}
-		System.out.println("");
+		// System.out.println("");
 	}
 
 	private void testDivide(BigInteger first, BigInteger second, HugeInteger myFirst, HugeInteger mySecond) {
@@ -97,12 +103,14 @@ public class HugeIntegerTest {
 					+ mySecond.toString());
 			System.err.println(result.toString() + " !=\n" + myResult.toString());
 		} else if (!hasDivisionError) {
-//			System.out.println("Division test passed");
-//			System.out.println(first.toString() + " / " + second.toString() + " =\n" + myFirst.toString() + " / "
-//					+ mySecond.toString());
-//			System.out.println(result.toString() + " =\n" + myResult.toString());
+			// System.out.println("Division test passed");
+			// System.out.println(first.toString() + " / " + second.toString() +
+			// " =\n" + myFirst.toString() + " / "
+			// + mySecond.toString());
+			// System.out.println(result.toString() + " =\n" +
+			// myResult.toString());
 		}
-		System.out.println("");
+		// System.out.println("");
 	}
 
 	private void testRemainder(BigInteger first, BigInteger second, HugeInteger myFirst, HugeInteger mySecond) {
@@ -126,15 +134,128 @@ public class HugeIntegerTest {
 			System.err.println("Remainder test failed");
 			System.err.println(first.toString() + " % " + second.toString() + " !=\n" + myFirst.toString() + " % "
 					+ mySecond.toString());
-			 System.err.println(result.toString() + " !=\n" +
-			 myResult.toString());
+			System.err.println(result.toString() + " !=\n" + myResult.toString());
 		} else if (!hasDivisionError) {
-//			System.out.println("Remainder test passed");
-//			System.out.println(first.toString() + " % " + second.toString() + " =\n" + myFirst.toString() + " % "
-//					+ mySecond.toString());
-//			System.out.println(result.toString() + " =\n" + myResult.toString());
+			// System.out.println("Remainder test passed");
+			// System.out.println(first.toString() + " % " + second.toString() +
+			// " =\n" + myFirst.toString() + " % "
+			// + mySecond.toString());
+			// System.out.println(result.toString() + " =\n" +
+			// myResult.toString());
 		}
-		System.out.println("");
+		// System.out.println("");
+	}
+
+	public void testIsEqualTo() {
+		HugeInteger first = new HugeInteger("100");
+		HugeInteger second = new HugeInteger("100");
+
+		if (first.isEqualTo(second) == false) {
+			System.err.println("isEqualTo test failed");
+		}
+
+		first = new HugeInteger("100");
+		second = new HugeInteger("200");
+
+		if (first.isEqualTo(second) == true) {
+			System.err.println("isEqualTo test failed");
+		}
+	}
+
+	public void testIsNotEqualTo() {
+		HugeInteger first = new HugeInteger("100");
+		HugeInteger second = new HugeInteger("100");
+
+		if (first.isNotEqualTo(second) == true) {
+			System.err.println("isNotEqualTo test failed");
+		}
+
+		first = new HugeInteger("100");
+		second = new HugeInteger("200");
+
+		if (first.isNotEqualTo(second) == false) {
+			System.err.println("isNotEqualTo test failed");
+		}
+	}
+
+	public void testIsGreaterThan() {
+		HugeInteger first = new HugeInteger("100");
+		HugeInteger second = new HugeInteger("100");
+
+		if (first.isGreaterThan(second) == true) {
+			System.err.println("isGreaterThan test failed");
+		}
+
+		first = new HugeInteger("100");
+		second = new HugeInteger("200");
+
+		if (first.isGreaterThan(second) == true) {
+			System.err.println("isGreaterThan test failed");
+		}
+		
+		if (second.isGreaterThan(first) == false) {
+			System.err.println("isGreaterThan test failed");
+		}
+	}
+
+	public void testIsLessThan() {
+		HugeInteger first = new HugeInteger("100");
+		HugeInteger second = new HugeInteger("100");
+
+		if (first.isLessThan(second) == true) {
+			System.err.println("isLessThan test failed");
+		}
+
+		first = new HugeInteger("100");
+		second = new HugeInteger("200");
+
+		if (first.isLessThan(second) == false) {
+			System.err.println("isLessThan test failed");
+		}
+		
+		if (second.isLessThan(first) == true) {
+			System.err.println("isLessThan test failed");
+		}
+	}
+
+	public void testIsGreaterThanOrEqualTo() {
+		HugeInteger first = new HugeInteger("100");
+		HugeInteger second = new HugeInteger("100");
+
+		if (first.isGreaterThanOrEqualTo(second) == false) {
+			System.err.println("isGreaterThanOrEqualTo test failed");
+		}
+
+		first = new HugeInteger("100");
+		second = new HugeInteger("200");
+
+		if (first.isGreaterThanOrEqualTo(second) == true) {
+			System.err.println("isGreaterThanOrEqualTo test failed");
+		}
+		
+		if (second.isGreaterThanOrEqualTo(first) == false) {
+			System.err.println("isGreaterThanOrEqualTo test failed");
+		}
+	}
+
+	public void testIsLessThanOrEqualTo() {
+		HugeInteger first = new HugeInteger("100");
+		HugeInteger second = new HugeInteger("100");
+
+		if (first.isLessThanOrEqualTo(second) == false) {
+			System.err.println("isLessThanOrEqualTo test failed");
+		}
+
+		first = new HugeInteger("100");
+		second = new HugeInteger("200");
+
+		if (first.isLessThanOrEqualTo(second) == false) {
+			System.err.println("isLessThanOrEqualTo test failed");
+		}
+		
+		if (second.isLessThanOrEqualTo(first) == true) {
+			System.err.println("isLessThanOrEqualTo test failed");
+		}
 	}
 
 	public static void main(String[] args) {
@@ -168,8 +289,8 @@ public class HugeIntegerTest {
 			test.testDivide(first, second, myFirst, mySecond);
 			test.testRemainder(first, second, myFirst, mySecond);
 		}
-		
-		for (int i = 0; i <= 10000; i++) {
+
+		for (int i = 0; i <= 100; i++) {
 			System.out.println("Round " + Integer.toString(i) + ". Generating two random numbers...\n");
 			SecureRandom rnd = new SecureRandom();
 			long num1 = Math.abs(rnd.nextLong()), num2 = Math.abs(rnd.nextInt());
@@ -191,8 +312,8 @@ public class HugeIntegerTest {
 			test.testDivide(first, second, myFirst, mySecond);
 			test.testRemainder(first, second, myFirst, mySecond);
 		}
-		
-		for (int i = 0; i <= 10000; i++) {
+
+		for (int i = 0; i <= 100; i++) {
 			System.out.println("Round " + Integer.toString(i) + ". Generating two random numbers...\n");
 			SecureRandom rnd = new SecureRandom();
 			long num1 = Math.abs(rnd.nextInt()), num2 = Math.abs(rnd.nextLong());
@@ -214,5 +335,12 @@ public class HugeIntegerTest {
 			test.testDivide(first, second, myFirst, mySecond);
 			test.testRemainder(first, second, myFirst, mySecond);
 		}
+		
+		test.testIsEqualTo();
+		test.testIsNotEqualTo();
+		test.testIsGreaterThan();
+		test.testIsGreaterThanOrEqualTo();
+		test.testIsLessThan();
+		test.testIsLessThanOrEqualTo();
 	}
 }
