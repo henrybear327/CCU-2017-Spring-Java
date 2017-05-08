@@ -10,5 +10,11 @@ public class Main {
 		
 		Triangle triangle = new Triangle(3, 4, 5);
 		System.out.println(triangle.toString());
+		
+		Cube cube = new Cube(10);
+		System.out.println(cube.toString());
+		
+		Sphere sphere = new Sphere(10);
+		System.out.println(sphere.toString());
 	}
 }
