@@ -44,8 +44,9 @@ public class Main {
         }
 
         try {
-            Tetrahedron tetrahedron = new Tetrahedron(0, 0, 0, number, number, 0, 0, number, number, number, 0, number);
+            Tetrahedron tetrahedron = new Tetrahedron(number, number, 0, 0, number, number, number, 0, number, 0, 0, 0);
             System.out.println(tetrahedron.toString());
+            // System.out.println(tetrahedron.convertedToString());
         } catch (Exception e) {
             System.out.println(e.toString());
         }

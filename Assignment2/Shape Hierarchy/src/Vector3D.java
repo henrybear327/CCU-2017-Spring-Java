@@ -12,7 +12,7 @@ public class Vector3D {
         pt[2] = z;
     }
 
-    public Vector3D substract(Vector3D second) {
+    public Vector3D subtract(Vector3D second) {
         double u1 = this.pt[0];
         double u2 = this.pt[1];
         double u3 = this.pt[2];
@@ -46,6 +46,10 @@ public class Vector3D {
         double v3 = second.pt[2];
 
         return u1 * v1 + u2 * v2 + u3 * v3;
+    }
+
+    public double getValue() {
+        return Math.sqrt(pt[0] * pt[0] + pt[1] * pt[1] + pt[2] * pt[2]);
     }
 
     public String toString() {

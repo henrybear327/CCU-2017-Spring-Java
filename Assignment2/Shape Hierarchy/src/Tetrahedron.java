@@ -25,12 +25,16 @@ public class Tetrahedron extends ThreeDimensionalShape {
         da = a;
         db = b;
         dc = c;
-        ba = a.substract(b);
-        bc = c.substract(b);
-        res += da.dot(dc);
-        res += db.dot(dc);
-        res += da.dot(db);
-        res += ba.dot(bc);
+        ba = a.subtract(b);
+        bc = c.subtract(b);
+        res += da.cross(dc).getValue();
+        //System.out.println(da.cross(dc).getValue());
+        res += db.cross(dc).getValue();
+        //System.out.println(db.cross(dc).getValue());
+        res += da.cross(db).getValue();
+        //System.out.println(da.cross(db).getValue());
+        res += ba.cross(bc).getValue();
+        //System.out.println(ba.cross(bc).getValue());
 
         res /= 2;
         return res;
@@ -39,9 +43,7 @@ public class Tetrahedron extends ThreeDimensionalShape {
     @Override
     public double getVolume() {
         // https://en.wikipedia.org/wiki/Tetrahedron#Volume
-        double res = Math.abs(a.dot(b.cross(c))) / 6.0;
-
-        return res;
+        return Math.abs(a.dot(b.cross(c))) / 6.0;
     }
 
     @Override
