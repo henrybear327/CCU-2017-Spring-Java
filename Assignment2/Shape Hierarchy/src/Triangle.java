@@ -3,7 +3,7 @@ public class Triangle extends TwoDimensionalShape {
 
     public Triangle(double a, double b, double c) {
         if (!((a + b > c) && (a + c > b) && (b + c > a)))
-            throw new IllegalArgumentException("The 3 edges given is not valid");
+            throw new IllegalArgumentException("The edge(s) given for a triangle is not valid");
 
         this.a = a;
         this.b = b;
@@ -19,7 +19,7 @@ public class Triangle extends TwoDimensionalShape {
 
     @Override
     public String toString() {
-        return "This object is a triangle. The edges are " + a + " " + b + " " + c + ". The area is " + getArea();
+        return "This object is a triangle.    The edges are " + a + " " + b + " " + c + ". The area is " + getArea();
     }
 
 }

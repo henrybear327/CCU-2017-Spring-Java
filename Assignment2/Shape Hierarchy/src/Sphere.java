@@ -3,7 +3,7 @@ public class Sphere extends ThreeDimensionalShape {
 
     public Sphere(double radius) {
         if (radius < 0.0)
-            throw new IllegalArgumentException("The radius must be a non-zero number");
+            throw new IllegalArgumentException("The radius of a sphere must be a non-zero number");
 
         this.radius = radius;
     }
@@ -20,7 +20,7 @@ public class Sphere extends ThreeDimensionalShape {
 
     @Override
     public String toString() {
-        return "This object is a sphere. The radius is " + radius + ". The area is " + getArea() + ". The volume is " + getVolume();
+        return "This object is a sphere.      The radius is " + radius + ". The area is " + getArea() + ". The volume is " + getVolume();
     }
 
 }
