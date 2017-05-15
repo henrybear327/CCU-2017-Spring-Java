@@ -1,41 +1,57 @@
-
 public class Tetrahedron extends ThreeDimensionalShape {
-	double[] x = new double[4];
-	double[] y = new double[4];
-	
-	public Tetrahedron(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3) {
-		x[0] = x0;
-		y[0] = y0;
-		
-		x[1] = x1;
-		y[1] = y1;
-		
-		x[2] = x2;
-		y[2] = y2;
-		
-		x[3] = x3;
-		y[3] = y3;
-	}
+    private Vector3D a, b, c;
+    private Vector3D origA, origB, origC, origD;
 
-	@Override
-	public double getArea() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public Tetrahedron(double a0, double a1, double a2,
+                       double b0, double b1, double b2,
+                       double c0, double c1, double c2,
+                       double d0, double d1, double d2) {
+        a = new Vector3D(a0 - d0, a1 - d1, a2 - d2);
+        b = new Vector3D(b0 - d0, b1 - d1, b2 - d2);
+        c = new Vector3D(c0 - d0, c1 - d1, c2 - d2);
 
-	@Override
-	public double getVolume() {
-		double res = 0;
-		
-		// https://en.wikipedia.org/wiki/Tetrahedron#Volume
-		
-		return res;
-	}
+        origA = new Vector3D(a0, a1, a2);
+        origB = new Vector3D(b0, b1, b2);
+        origC = new Vector3D(c0, c1, c2);
+        origD = new Vector3D(d0, d1, d2);
+    }
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+    @Override
+    public double getArea() {
+        // 0.5 * vec(ab) dot vec(ac)
+        double res = 0;
+
+        Vector3D da, db, dc, ba, bc;
+        da = a;
+        db = b;
+        dc = c;
+        ba = a.substract(b);
+        bc = c.substract(b);
+        res += da.dot(dc);
+        res += db.dot(dc);
+        res += da.dot(db);
+        res += ba.dot(bc);
+
+        res /= 2;
+        return res;
+    }
+
+    @Override
+    public double getVolume() {
+        // https://en.wikipedia.org/wiki/Tetrahedron#Volume
+        double res = Math.abs(a.dot(b.cross(c))) / 6.0;
+
+        return res;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("This object is a tetrahedron. The vectors given are: %s, %s, %s, %s. The area is %f, and the volume is %f",
+                origA.toString(), origB.toString(), origC.toString(), origD.toString(), getArea(), getVolume());
+    }
+
+    public String convertedToString() {
+        return String.format("This object is a tetrahedron. The vectors given are: %s, %s, %s. The area is %f, and the volume is %f",
+                a.toString(), b.toString(), c.toString(), getArea(), getVolume());
+    }
 }
