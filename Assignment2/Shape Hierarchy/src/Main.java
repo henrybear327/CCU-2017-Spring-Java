@@ -16,7 +16,7 @@ public class Main {
         System.out.println(sphere.toString());
 
         // Tetrahedron tetrahedron = new Tetrahedron(1,2,4,4,0,3,1,1,7, 3,2,1);
-        Tetrahedron tetrahedron = new Tetrahedron(0,0,0,1,0,0,0,1,0,0,0,1);
+        Tetrahedron tetrahedron = new Tetrahedron(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1);
         System.out.println(tetrahedron.toString());
         // System.out.println(tetrahedron.convertedToString());
     }

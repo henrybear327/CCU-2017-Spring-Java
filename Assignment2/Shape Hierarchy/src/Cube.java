@@ -1,5 +1,5 @@
 public class Cube extends ThreeDimensionalShape {
-    double edge;
+    private double edge;
 
     Cube(double edge) {
         if (edge < 0.0)
@@ -19,7 +19,7 @@ public class Cube extends ThreeDimensionalShape {
 
     @Override
     public String toString() {
-        return "This object is a cube. The edge length is " + edge + ", the area is " + getArea() + ", and the volume is " + getVolume();
+        return "This object is a cube. The edge length is " + edge + ". The area is " + getArea() + ". The volume is " + getVolume();
     }
 
 }

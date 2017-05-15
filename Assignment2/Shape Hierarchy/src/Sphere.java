@@ -1,5 +1,5 @@
 public class Sphere extends ThreeDimensionalShape {
-    double radius;
+    private double radius;
 
     public Sphere(double radius) {
         if (radius < 0.0)
@@ -20,7 +20,7 @@ public class Sphere extends ThreeDimensionalShape {
 
     @Override
     public String toString() {
-        return "This object is a sphere. The radius is " + radius + ", the area is " + getArea() + ", and the volume is " + getVolume();
+        return "This object is a sphere. The radius is " + radius + ". The area is " + getArea() + ". The volume is " + getVolume();
     }
 
 }
