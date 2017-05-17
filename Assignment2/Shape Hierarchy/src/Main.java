@@ -44,7 +44,7 @@ public class Main {
         }
 
         try {
-            Tetrahedron tetrahedron = new Tetrahedron(number, number, 0, 0, number, number, number, 0, number, 0, 0, 0);
+            Tetrahedron tetrahedron = new Tetrahedron(0, 0, 0, number, 0, 0, 0, number, 0, 0, 0, number);
             System.out.println(tetrahedron.toString());
             // System.out.println(tetrahedron.convertedToString());
         } catch (Exception e) {
@@ -52,23 +52,23 @@ public class Main {
         }
 
 
-//        Circle circle = new Circle(1.0);
+//        Circle circle = new Circle(5.0);
 //        System.out.println(circle.toString());
 //
-//        Square square = new Square(10.0);
+//        Square square = new Square(5.0);
 //        System.out.println(square.toString());
 //
-//        Triangle triangle = new Triangle(3, 4, 5);
+//        Triangle triangle = new Triangle(6, 5, 5);
 //        System.out.println(triangle.toString());
 //
-//        Cube cube = new Cube(10);
+//        Cube cube = new Cube(5);
 //        System.out.println(cube.toString());
 //
-//        Sphere sphere = new Sphere(10);
+//        Sphere sphere = new Sphere(5);
 //        System.out.println(sphere.toString());
 //
 //        // Tetrahedron tetrahedron = new Tetrahedron(1,2,4,4,0,3,1,1,7, 3,2,1);
-//        Tetrahedron tetrahedron = new Tetrahedron(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1);
+//        Tetrahedron tetrahedron = new Tetrahedron(0, 0, 0, 0, 0, 6, 0, 6, 0, 6, 0, 0);
 //        System.out.println(tetrahedron.toString());
 //        // System.out.println(tetrahedron.convertedToString());
     }
