@@ -12,11 +12,11 @@ public class PayrollSystemTest {
 
 		System.out.println("Employees processed individually:");
 
-		System.out.printf("%n%s%n%s: $%,.2f%n%n", salariedEmployee, "earned", salariedEmployee.earnings());
-		System.out.printf("%s%n%s: $%,.2f%n%n", hourlyEmployee, "earned", hourlyEmployee.earnings());
-		System.out.printf("%s%n%s: $%,.2f%n%n", commissionEmployee, "earned", commissionEmployee.earnings());
+		System.out.printf("%n%s%n%s: $%,.2f%n%n", salariedEmployee, "earned", salariedEmployee.getPaymentAmount());
+		System.out.printf("%s%n%s: $%,.2f%n%n", hourlyEmployee, "earned", hourlyEmployee.getPaymentAmount());
+		System.out.printf("%s%n%s: $%,.2f%n%n", commissionEmployee, "earned", commissionEmployee.getPaymentAmount());
 		System.out.printf("%s%n%s: $%,.2f%n%n", basePlusCommissionEmployee, "earned",
-				basePlusCommissionEmployee.earnings());
+				basePlusCommissionEmployee.getPaymentAmount());
 
 		// create four-element Employee array
 		Employee[] employees = new Employee[4];
@@ -41,10 +41,9 @@ public class PayrollSystemTest {
 
 				employee.setBaseSalary(1.10 * employee.getBaseSalary());
 
-				System.out.printf("new base salary with 10%% increase is: $%,.2f%n", employee.getBaseSalary());
+				System.out.printf("new base salary with 10%% increase is: $%,.2f%n", employee.getPaymentAmount());
 			}
 
-			// System.out.printf("earned $%,.2f%n%n", currentEmployee.earnings());
 			System.out.printf("earned $%,.2f%n%n", currentEmployee.getPaymentAmount());
 		}
 
