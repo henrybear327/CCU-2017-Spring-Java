@@ -15,6 +15,7 @@ public class Circle extends TwoDimensionalShape {
 
     @Override
     public String toString() {
-        return "This object is a circle.      The radius is " + radius + ". The area is " + getArea();
+        // return "This object is a circle.      The radius is " + radius + ". The area is " + getArea();
+        return "This object is a circle. The radius is " + radius + ".";
     }
 }

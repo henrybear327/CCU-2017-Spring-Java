@@ -48,8 +48,11 @@ public class Tetrahedron extends ThreeDimensionalShape {
 
     @Override
     public String toString() {
-        return String.format("This object is a tetrahedron. The vectors given are: %s, %s, %s, %s. The area is %f, and the volume is %f",
-                origA.toString(), origB.toString(), origC.toString(), origD.toString(), getArea(), getVolume());
+//        return String.format("This object is a tetrahedron. The vectors given are: %s, %s, %s, %s. The area is %f, and the volume is %f",
+//                origA.toString(), origB.toString(), origC.toString(), origD.toString(), getArea(), getVolume());
+
+        return String.format("This object is a tetrahedron. The vectors given are: %s, %s, %s, %s.",
+                origA.toString(), origB.toString(), origC.toString(), origD.toString());
     }
 
     public String convertedToString() {

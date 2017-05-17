@@ -20,7 +20,8 @@ public class Sphere extends ThreeDimensionalShape {
 
     @Override
     public String toString() {
-        return "This object is a sphere.      The radius is " + radius + ". The area is " + getArea() + ". The volume is " + getVolume();
+        // return "This object is a sphere.      The radius is " + radius + ". The area is " + getArea() + ". The volume is " + getVolume();
+        return "This object is a sphere. The radius is " + radius + ".";
     }
 
 }

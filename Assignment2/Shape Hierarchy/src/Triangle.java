@@ -19,7 +19,8 @@ public class Triangle extends TwoDimensionalShape {
 
     @Override
     public String toString() {
-        return "This object is a triangle.    The edges are " + a + " " + b + " " + c + ". The area is " + getArea();
+        // return "This object is a triangle.    The edges are " + a + " " + b + " " + c + ". The area is " + getArea();
+        return "This object is a triangle. The edges are " + a + " " + b + " " + c + ".";
     }
 
 }

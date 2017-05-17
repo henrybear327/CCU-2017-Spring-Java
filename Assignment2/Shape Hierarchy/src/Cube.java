@@ -19,7 +19,8 @@ public class Cube extends ThreeDimensionalShape {
 
     @Override
     public String toString() {
-        return "This object is a cube.        The edge length is " + edge + ". The area is " + getArea() + ". The volume is " + getVolume();
+        // return "This object is a cube.        The edge length is " + edge + ". The area is " + getArea() + ". The volume is " + getVolume();
+        return "This object is a cube. The edge length is " + edge + ".";
     }
 
 }
