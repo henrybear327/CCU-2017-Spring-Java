@@ -4,8 +4,8 @@
 public class Main {
     private static void setupGUI() {
         // new SetupDialog();
-
-        new SetupLabelAndIcon();
+        // new SetupLabelAndIcon();
+        new SetupTextfield();
     }
 
     public static void main(String[] args) {

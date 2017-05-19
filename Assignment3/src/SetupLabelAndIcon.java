@@ -34,7 +34,7 @@ public class SetupLabelAndIcon {
         label3.setIcon(picture);
         label3.setHorizontalTextPosition(SwingConstants.LEFT);
         label3.setVerticalTextPosition(SwingConstants.BOTTOM);
-        label3.setToolTipText("Fuxk you");
+        label3.setToolTipText("Hey there");
         frame.add(label3);
 
         // final touch on JFrame
