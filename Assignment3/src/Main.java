@@ -3,9 +3,9 @@
  */
 public class Main {
     private static void setupGUI() {
-        Chapter12 gui = new Chapter12();
+        // new SetupDialog();
 
-        gui.setupDialog();
+        new SetupLabelAndIcon();
     }
 
     public static void main(String[] args) {
