@@ -14,7 +14,7 @@ public class TypingGUI {
 
     private JLabel scoreLabel;
 
-    private final int windowWidth = 1100;
+    private final int windowWidth = 800;
     private final int windowHeight = 600;
 
     private final int keyWidth = 50 / 2;
