@@ -14,8 +14,11 @@ public class TypingGUI {
 
     private JLabel scoreLabel;
 
-    private final int windowWidth = 800;
+    private final int windowWidth = 1100;
     private final int windowHeight = 600;
+
+    private final int keyWidth = 50 / 2;
+    private final int keyHeight = 50;
 
     public TypingGUI() {
 //        testBoxLayout();
@@ -51,9 +54,9 @@ public class TypingGUI {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(windowWidth, windowHeight);
 
-        frame.setLayout(new GridLayout(1,1));
+        frame.setLayout(new GridLayout(1, 1));
 
-//        frame.setResizable(false);
+        frame.setResizable(false);
 
         container = frame.getContentPane();
         container.setLayout(new GridLayout(0, 1));
@@ -104,7 +107,7 @@ public class TypingGUI {
 
     private void configurePrintTextArea() {
         JPanel textAreaPanel = new JPanel();
-        textAreaPanel.setLayout(new GridLayout(1,1));
+        textAreaPanel.setLayout(new GridLayout(1, 1));
 
         JTextArea textArea = new JTextArea("1");
         textArea.setEnabled(false);
@@ -123,7 +126,7 @@ public class TypingGUI {
 
     private void configureGetTextArea() {
         JPanel textAreaPanel = new JPanel();
-        textAreaPanel.setLayout(new GridLayout(1,1));
+        textAreaPanel.setLayout(new GridLayout(1, 1));
 
         JTextArea textArea = new JTextArea("2");
         textArea.setEnabled(false);
@@ -141,13 +144,120 @@ public class TypingGUI {
     }
 
     private void configureKeyboard() {
+        JPanel keyboardPanel = new JPanel();
+        keyboardPanel.setLayout(new GridLayout(5, 1, 0, 0));
 
+        String[][] keyBoardKeys = {
+                {"~", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "+", "Backspace"},
+                {"Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\"},
+                {"Caps", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "\"", "Enter"},
+                {"Shift", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "?", "^"},
+                {" ", "<", "ˇ", ">"}
+        };
+
+        prepareKeyBoardRow1(keyboardPanel, keyBoardKeys);
+        prepareKeyBoardRow2(keyboardPanel, keyBoardKeys);
+        prepareKeyBoardRow3(keyboardPanel, keyBoardKeys);
+        prepareKeyBoardRow4(keyboardPanel, keyBoardKeys);
+        prepareKeyBoardRow5(keyboardPanel, keyBoardKeys);
+
+        panel.add(keyboardPanel);
+    }
+
+    private JButton createButton(String text, int width) {
+        JButton plainButton = new JButton(text);
+        plainButton.setPreferredSize(new Dimension(width, keyHeight));
+
+        return plainButton;
+    }
+
+    private void prepareKeyBoardRow1(JPanel keyboardPanel, String[][] keyBoardKeys) {
+        JPanel row = new JPanel();
+        row.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
+        for (int i = 0; i < keyBoardKeys[0].length; i++) {
+            int width = keyWidth * 2;
+            if (i == keyBoardKeys[0].length - 1)
+                width = keyWidth * 6;
+            row.add(createButton(keyBoardKeys[0][i], width));
+        }
+
+        keyboardPanel.add(row);
+    }
+
+    private void prepareKeyBoardRow2(JPanel keyboardPanel, String[][] keyBoardKeys) {
+        JPanel row = new JPanel();
+        row.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
+        for (int i = 0; i < keyBoardKeys[1].length; i++) {
+            int width = keyWidth * 2;
+            if (i == 0)
+                width = keyWidth * 3;
+            row.add(createButton(keyBoardKeys[1][i], width));
+        }
+
+        keyboardPanel.add(row);
+    }
+
+    private void prepareKeyBoardRow3(JPanel keyboardPanel, String[][] keyBoardKeys) {
+        JPanel row = new JPanel();
+        row.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
+        for (int i = 0; i < keyBoardKeys[2].length; i++) {
+            int width = keyWidth * 2;
+            if (i == 0)
+                width = keyWidth * 3;
+            else if (i == keyBoardKeys[2].length - 1)
+                width = keyWidth * 4;
+            row.add(createButton(keyBoardKeys[2][i], width));
+        }
+
+        keyboardPanel.add(row);
+    }
+
+    private void prepareKeyBoardRow4(JPanel keyboardPanel, String[][] keyBoardKeys) {
+        JPanel row = new JPanel();
+        row.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
+        for (int i = 0; i < keyBoardKeys[3].length; i++) {
+            int width = keyWidth * 2;
+            if (i == 0)
+                width = keyWidth * 4;
+            else if (i == keyBoardKeys[3].length - 1) {
+                JLabel emptyLabel = new JLabel("      ");
+                row.add(emptyLabel);
+            }
+            row.add(createButton(keyBoardKeys[3][i], width));
+        }
+
+        keyboardPanel.add(row);
+    }
+
+    private void prepareKeyBoardRow5(JPanel keyboardPanel, String[][] keyBoardKeys) {
+        JPanel row = new JPanel();
+        row.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
+        for (int i = 0; i < keyBoardKeys[4].length; i++) {
+            int width = keyWidth * 2;
+            if(i == 0) {
+                JLabel emptyLabel = new JLabel("                                                  ");
+                row.add(emptyLabel);
+
+                width *= 6;
+            } else if(i == 1) {
+                JLabel emptyLabel = new JLabel("                   ");
+                row.add(emptyLabel);
+            }
+            row.add(createButton(keyBoardKeys[4][i], width));
+        }
+
+        keyboardPanel.add(row);
     }
 
     private void testBoxLayout() {
         // http://progden-programming.blogspot.tw/2013/02/layout-boxlayout.html
         JFrame frame = new JFrame("BoxLayout-1");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Container cp = frame.getContentPane();
         cp.setLayout(new GridLayout(0, 1));
 
