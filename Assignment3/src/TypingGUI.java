@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.SecureRandom;
+import java.util.HashMap;
 
 /**
  * Created by henrybear327 on 5/19/17.
@@ -26,6 +27,10 @@ public class TypingGUI implements KeyListener {
     private final int keyWidth = 50 / 2;
     private final int keyHeight = 50;
 
+    private Color originalColor;
+
+    private HashMap<String, JButton> buttonMap;
+
     // https://www.themarysue.com/sentences-every-letter-pangram-holoalphabetic-sentence/
     private final int stringToCompareWithIndex;
     private final String[] stringToCompareWith = {
@@ -45,6 +50,8 @@ public class TypingGUI implements KeyListener {
 
         SecureRandom sr = new SecureRandom();
         stringToCompareWithIndex = sr.nextInt(stringToCompareWith.length);
+
+        buttonMap = new HashMap<>();
 
         configure();
 
@@ -71,22 +78,83 @@ public class TypingGUI implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        textAreaString = "keyTyped: " + e.getKeyChar() + "\n";
-        System.out.println(textAreaString);
-        textArea.setText(textAreaString);
+//        textAreaString = "keyTyped: " + e.getKeyChar() + "\n";
+//        System.out.println(textAreaString);
+//        textArea.setText(textAreaString);
+    }
+
+    private String getKeyText(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        String text = "";
+
+        switch (keyCode) {
+            case KeyEvent.VK_UP:
+                textAreaString = "up\n";
+                text = "↑";
+                break;
+            case KeyEvent.VK_DOWN:
+                textAreaString = "down\n";
+                text = "↓";
+                break;
+            case KeyEvent.VK_LEFT:
+                textAreaString = "left\n";
+                text = "←";
+                break;
+            case KeyEvent.VK_RIGHT:
+                textAreaString = "right\n";
+                text = "→";
+                break;
+            case KeyEvent.VK_TAB:
+                textAreaString = "tab\n";
+                text = "Tab";
+                break;
+            case KeyEvent.VK_SPACE:
+                textAreaString = "space\n";
+                text = " ";
+                break;
+            case KeyEvent.VK_BACK_SPACE:
+                textAreaString = "backspace\n";
+                text = "Backspace";
+                break;
+            case KeyEvent.VK_SHIFT:
+                textAreaString = "shift\n";
+                text = "Shift";
+                break;
+            case KeyEvent.VK_ENTER:
+                textAreaString = "enter\n";
+                text = "Enter";
+                break;
+            default:
+                text = Character.toString(e.getKeyChar()).toUpperCase();
+                textAreaString = "default " + e.getKeyChar() + "\n";
+        }
+
+        return text;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        textAreaString = "keyPressed: " + e.getKeyChar() + "\n";
-        System.out.println(textAreaString);
+        String text = getKeyText(e);
+
+        JButton currentlyPressed = buttonMap.getOrDefault(text, null);
+        if(currentlyPressed == null)
+            return;
+        currentlyPressed.setBackground(Color.RED);
+
+        System.out.print(textAreaString);
         textArea.setText(textAreaString);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        textAreaString = "keyReleased: " + e.getKeyChar() + "\n";
-        System.out.println(textAreaString);
+        String text = getKeyText(e);
+
+        JButton currentlyPressed = buttonMap.getOrDefault(text, null);
+        if(currentlyPressed == null)
+            return;
+        currentlyPressed.setBackground(originalColor);
+
+        System.out.print(textAreaString);
         textArea.setText(textAreaString);
     }
 
@@ -211,6 +279,10 @@ public class TypingGUI implements KeyListener {
     private JButton createButton(String text, int width) {
         JButton plainButton = new JButton(text);
         plainButton.setPreferredSize(new Dimension(width, keyHeight));
+
+        originalColor = plainButton.getBackground();
+
+        buttonMap.put(text, plainButton);
 
         return plainButton;
     }
