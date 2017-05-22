@@ -2,18 +2,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.security.SecureRandom;
 
 /**
  * Created by henrybear327 on 5/19/17.
  */
-public class TypingGUI {
+public class TypingGUI implements KeyListener {
 
     private Container container;
     private JFrame frame;
     private JPanel panel;
 
-    private JLabel scoreLabel;
+    private JTextArea textArea;
+    private String textAreaString;
+
+    private JPanel keyboardPanel;
 
     private final int windowWidth = 1000;
     private final int windowHeight = 600;
@@ -58,7 +63,31 @@ public class TypingGUI {
         configureKeyboard();
 
         container.add(panel);
+        frame.pack();
+        panel.addKeyListener(this);
+        panel.requestFocusInWindow();
         frame.setVisible(true);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        textAreaString = "keyTyped: " + e.getKeyChar() + "\n";
+        System.out.println(textAreaString);
+        textArea.setText(textAreaString);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        textAreaString = "keyPressed: " + e.getKeyChar() + "\n";
+        System.out.println(textAreaString);
+        textArea.setText(textAreaString);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        textAreaString = "keyReleased: " + e.getKeyChar() + "\n";
+        System.out.println(textAreaString);
+        textArea.setText(textAreaString);
     }
 
     private void configure() {
@@ -110,6 +139,7 @@ public class TypingGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "TODO");
+                panel.requestFocusInWindow();
             }
         });
         instructionLabelPanel.add(showAccuracyButton);
@@ -123,7 +153,8 @@ public class TypingGUI {
         JPanel textAreaPanel = new JPanel();
         textAreaPanel.setLayout(new GridLayout(1, 1));
 
-        JTextArea textArea = new JTextArea("");
+        textArea = new JTextArea("");
+        textAreaString = "";
         textArea.setEnabled(false);
         textArea.setDisabledTextColor(Color.BLACK);
 
@@ -154,7 +185,7 @@ public class TypingGUI {
     }
 
     private void configureKeyboard() {
-        JPanel keyboardPanel = new JPanel();
+        keyboardPanel = new JPanel();
         keyboardPanel.setLayout(new GridLayout(5, 1, 0, 0));
 
         String[][] keyBoardKeys = {
