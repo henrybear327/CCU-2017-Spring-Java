@@ -84,7 +84,7 @@ public class TypingGUI implements KeyListener {
 //        textArea.setText(textAreaString);
     }
 
-    private String getKeyText(KeyEvent e, boolean needAction) {
+    private String getKeyText(KeyEvent e, boolean needAction, boolean blocking) {
         int keyCode = e.getKeyCode();
         String text = "";
 
@@ -112,13 +112,13 @@ public class TypingGUI implements KeyListener {
             case KeyEvent.VK_SPACE:
                 debugString = "space\n";
                 text = " ";
-                if (needAction == true)
+                if (needAction && blocking == false)
                     textAreaString += " ";
                 break;
             case KeyEvent.VK_BACK_SPACE:
                 debugString = "backspace\n";
                 text = "Backspace";
-                if (needAction == true && textAreaString.length() > 0)
+                if (needAction && textAreaString.length() > 0)
                     textAreaString = textAreaString.substring(0, textAreaString.length() - 1);
                 break;
             case KeyEvent.VK_SHIFT:
@@ -128,13 +128,13 @@ public class TypingGUI implements KeyListener {
             case KeyEvent.VK_ENTER:
                 debugString = "enter\n";
                 text = "Enter";
-                if (needAction == true)
+                if (needAction && blocking == false)
                     textAreaString += "\n";
                 break;
             default:
                 text = Character.toString(e.getKeyChar()).toUpperCase();
                 debugString = "default " + e.getKeyChar() + "\n";
-                if (needAction == true)
+                if (needAction && blocking == false)
                     textAreaString += e.getKeyChar();
         }
 
@@ -143,7 +143,10 @@ public class TypingGUI implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        String text = getKeyText(e, true);
+        boolean blocking = false;
+        if(stringToCompareWith[stringToCompareWithIndex].length() <= textAreaString.length())
+            blocking = true;
+        String text = getKeyText(e, true, blocking);
 
         JButton currentlyPressed = buttonMap.getOrDefault(text, null);
         if (currentlyPressed == null)
@@ -156,7 +159,7 @@ public class TypingGUI implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        String text = getKeyText(e, false);
+        String text = getKeyText(e, false, false);
 
         JButton currentlyPressed = buttonMap.getOrDefault(text, null);
         if (currentlyPressed == null)
@@ -214,7 +217,11 @@ public class TypingGUI implements KeyListener {
         showAccuracyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "TODO");
+                int cnt = 0;
+                for(int i = 0; i < stringToCompareWith[stringToCompareWithIndex].length() && i < textAreaString.length(); i++)
+                    if(stringToCompareWith[stringToCompareWithIndex].charAt(i) == textAreaString.charAt(i))
+                        cnt++;
+                JOptionPane.showMessageDialog(null, cnt + " / " + stringToCompareWith[stringToCompareWithIndex].length());
                 panel.requestFocusInWindow();
             }
         });
