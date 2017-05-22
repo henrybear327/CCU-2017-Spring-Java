@@ -18,6 +18,7 @@ public class TypingGUI implements KeyListener {
 
     private JTextArea textArea;
     private String textAreaString;
+    private String debugString;
 
     private JPanel keyboardPanel;
 
@@ -83,50 +84,58 @@ public class TypingGUI implements KeyListener {
 //        textArea.setText(textAreaString);
     }
 
-    private String getKeyText(KeyEvent e) {
+    private String getKeyText(KeyEvent e, boolean needAction) {
         int keyCode = e.getKeyCode();
         String text = "";
 
         switch (keyCode) {
             case KeyEvent.VK_UP:
-                textAreaString = "up\n";
+                debugString = "up\n";
                 text = "↑";
                 break;
             case KeyEvent.VK_DOWN:
-                textAreaString = "down\n";
+                debugString = "down\n";
                 text = "↓";
                 break;
             case KeyEvent.VK_LEFT:
-                textAreaString = "left\n";
+                debugString = "left\n";
                 text = "←";
                 break;
             case KeyEvent.VK_RIGHT:
-                textAreaString = "right\n";
+                debugString = "right\n";
                 text = "→";
                 break;
             case KeyEvent.VK_TAB:
-                textAreaString = "tab\n";
+                debugString = "tab\n";
                 text = "Tab";
                 break;
             case KeyEvent.VK_SPACE:
-                textAreaString = "space\n";
+                debugString = "space\n";
                 text = " ";
+                if (needAction == true)
+                    textAreaString += " ";
                 break;
             case KeyEvent.VK_BACK_SPACE:
-                textAreaString = "backspace\n";
+                debugString = "backspace\n";
                 text = "Backspace";
+                if (needAction == true && textAreaString.length() > 0)
+                    textAreaString = textAreaString.substring(0, textAreaString.length() - 1);
                 break;
             case KeyEvent.VK_SHIFT:
-                textAreaString = "shift\n";
+                debugString = "shift\n";
                 text = "Shift";
                 break;
             case KeyEvent.VK_ENTER:
-                textAreaString = "enter\n";
+                debugString = "enter\n";
                 text = "Enter";
+                if (needAction == true)
+                    textAreaString += "\n";
                 break;
             default:
                 text = Character.toString(e.getKeyChar()).toUpperCase();
-                textAreaString = "default " + e.getKeyChar() + "\n";
+                debugString = "default " + e.getKeyChar() + "\n";
+                if (needAction == true)
+                    textAreaString += e.getKeyChar();
         }
 
         return text;
@@ -134,28 +143,27 @@ public class TypingGUI implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        String text = getKeyText(e);
+        String text = getKeyText(e, true);
 
         JButton currentlyPressed = buttonMap.getOrDefault(text, null);
-        if(currentlyPressed == null)
+        if (currentlyPressed == null)
             return;
         currentlyPressed.setBackground(Color.RED);
 
-        System.out.print(textAreaString);
+        System.out.print(debugString);
         textArea.setText(textAreaString);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        String text = getKeyText(e);
+        String text = getKeyText(e, false);
 
         JButton currentlyPressed = buttonMap.getOrDefault(text, null);
-        if(currentlyPressed == null)
+        if (currentlyPressed == null)
             return;
         currentlyPressed.setBackground(originalColor);
 
-        System.out.print(textAreaString);
-        textArea.setText(textAreaString);
+        System.out.print(debugString);
     }
 
     private void configure() {
