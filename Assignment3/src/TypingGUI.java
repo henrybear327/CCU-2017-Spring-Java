@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.SecureRandom;
 
 /**
  * Created by henrybear327 on 5/19/17.
@@ -14,14 +15,31 @@ public class TypingGUI {
 
     private JLabel scoreLabel;
 
-    private final int windowWidth = 800;
+    private final int windowWidth = 1000;
     private final int windowHeight = 600;
 
     private final int keyWidth = 50 / 2;
     private final int keyHeight = 50;
 
+    // https://www.themarysue.com/sentences-every-letter-pangram-holoalphabetic-sentence/
+    private final int stringToCompareWithIndex;
+    private final String[] stringToCompareWith = {
+            "Sphinx of black quartz, judge my vow",
+            "Jackdaws love my big sphinx of quartz",
+            "Pack my box with five dozen liquor jugs",
+            "The quick onyx goblin jumps over the lazy dwarf",
+            "Cwm fjord bank glyphs vext quiz",
+            "How razorback-jumping frogs can level six piqued gymnasts!",
+            "Cozy lummox gives smart squid who asks for job pen",
+            "Amazingly few discotheques provide jukeboxes",
+            "Now fax quiz Jack!’ my brave ghost pled"
+    };
+
     public TypingGUI() {
 //        testBoxLayout();
+
+        SecureRandom sr = new SecureRandom();
+        stringToCompareWithIndex = sr.nextInt(stringToCompareWith.length);
 
         configure();
 
@@ -29,15 +47,11 @@ public class TypingGUI {
 
         addEmptyLabel();
 
-        configureShowScore();
-
-        addEmptyLabel();
-
-        configurePrintTextArea();
-
-        addEmptyLabel();
-
         configureGetTextArea();
+
+        addEmptyLabel();
+
+        configureCompareWithLabel();
 
         addEmptyLabel();
 
@@ -72,75 +86,71 @@ public class TypingGUI {
         emptyLabel.setText("<html><body><br></body></html>");
         emptyLabelPanel.add(emptyLabel);
 
-        emptyLabel.setPreferredSize(new Dimension(windowWidth - 20, 10));
-        emptyLabel.setMaximumSize(new Dimension(windowWidth - 20, 10));
+        emptyLabel.setPreferredSize(new Dimension(windowWidth - 10, 10));
+        emptyLabel.setMaximumSize(new Dimension(windowWidth - 10, 10));
 
-        emptyLabelPanel.setPreferredSize(new Dimension(windowWidth, 10));
-        emptyLabelPanel.setMaximumSize(new Dimension(windowWidth, 10));
+        emptyLabelPanel.setPreferredSize(new Dimension(windowWidth - 10, 10));
+        emptyLabelPanel.setMaximumSize(new Dimension(windowWidth - 10, 10));
 
         panel.add(emptyLabelPanel);
     }
 
     private void configureInstructionLabel() {
         JPanel instructionLabelPanel = new JPanel();
+        instructionLabelPanel.setLayout(new BoxLayout(instructionLabelPanel, BoxLayout.X_AXIS));
 
         JLabel instructionLabel = new JLabel();
         instructionLabel.setText("<html><body>Type some text using your keyboard. The keys you press will be highlighted and the text will be displayed.<br>Note: Clicking the buttons with your mouse will not perform any action.</body></html>");
+        instructionLabel.setPreferredSize(new Dimension(windowWidth - 100, 40));
+        instructionLabel.setMaximumSize(new Dimension(windowWidth - 100, 40));
         instructionLabelPanel.add(instructionLabel);
 
-        instructionLabel.setPreferredSize(new Dimension(windowWidth - 20, 40));
-        instructionLabel.setMaximumSize(new Dimension(windowWidth - 20, 40));
+        JButton showAccuracyButton = new JButton("GetAccuracy");
+        showAccuracyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "TODO");
+            }
+        });
+        instructionLabelPanel.add(showAccuracyButton);
 
-        instructionLabelPanel.setPreferredSize(new Dimension(windowWidth, 40));
-        instructionLabelPanel.setMaximumSize(new Dimension(windowWidth, 40));
-
+        instructionLabelPanel.setPreferredSize(new Dimension(windowWidth - 10, 40));
+        instructionLabelPanel.setMaximumSize(new Dimension(windowWidth - 10, 40));
         panel.add(instructionLabelPanel);
-    }
-
-    private void configureShowScore() {
-        scoreLabel = new JLabel();
-        scoreLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        scoreLabel.setText("<html><body>Score label... TODO</body></html>");
-
-        panel.add(scoreLabel);
-    }
-
-    private void configurePrintTextArea() {
-        JPanel textAreaPanel = new JPanel();
-        textAreaPanel.setLayout(new GridLayout(1, 1));
-
-        JTextArea textArea = new JTextArea("1");
-        textArea.setEnabled(false);
-        textArea.setDisabledTextColor(Color.BLACK);
-
-//        textArea.setPreferredSize(new Dimension(windowWidth - 20, 40));
-//        textArea.setMaximumSize(new Dimension(windowWidth - 20, 40));
-//
-//        textAreaPanel.setPreferredSize(new Dimension(windowWidth, 60));
-//        textAreaPanel.setMaximumSize(new Dimension(windowWidth, 60));
-
-        textAreaPanel.add(textArea);
-
-        panel.add(textAreaPanel);
     }
 
     private void configureGetTextArea() {
         JPanel textAreaPanel = new JPanel();
         textAreaPanel.setLayout(new GridLayout(1, 1));
 
-        JTextArea textArea = new JTextArea("2");
+        JTextArea textArea = new JTextArea("");
         textArea.setEnabled(false);
         textArea.setDisabledTextColor(Color.BLACK);
 
-//        textArea.setPreferredSize(new Dimension(windowWidth - 20, 40));
-//        textArea.setMaximumSize(new Dimension(windowWidth - 20, 40));
-//
-//        textAreaPanel.setPreferredSize(new Dimension(windowWidth, 60));
-//        textAreaPanel.setMaximumSize(new Dimension(windowWidth, 60));
+        textArea.setPreferredSize(new Dimension(windowWidth - 20, 200));
+        textArea.setMaximumSize(new Dimension(windowWidth - 20, 200));
+
+        textAreaPanel.setPreferredSize(new Dimension(windowWidth - 10, 200));
+        textAreaPanel.setMaximumSize(new Dimension(windowWidth - 10, 200));
 
         textAreaPanel.add(textArea);
 
         panel.add(textAreaPanel);
+    }
+
+    private void configureCompareWithLabel() {
+        JPanel compareWithLabelPanel = new JPanel();
+        compareWithLabelPanel.setLayout(new BoxLayout(compareWithLabelPanel, BoxLayout.X_AXIS));
+
+        JLabel compareWithLabel = new JLabel();
+        compareWithLabel.setText("<html><body>Compare with: <span style=\"color: #ff0000\">" + stringToCompareWith[stringToCompareWithIndex] + "</span></body></html>");
+        compareWithLabel.setPreferredSize(new Dimension(windowWidth - 10, 40));
+        compareWithLabel.setMaximumSize(new Dimension(windowWidth - 10, 40));
+        compareWithLabelPanel.add(compareWithLabel);
+
+        compareWithLabelPanel.setSize(new Dimension(windowWidth - 10, 40));
+
+        panel.add(compareWithLabelPanel);
     }
 
     private void configureKeyboard() {
@@ -151,8 +161,8 @@ public class TypingGUI {
                 {"~", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "+", "Backspace"},
                 {"Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\"},
                 {"Caps", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "\"", "Enter"},
-                {"Shift", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "?", "^"},
-                {" ", "<", "ˇ", ">"}
+                {"Shift", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "?", "↑"},
+                {" ", "←", "↓", "→"}
         };
 
         prepareKeyBoardRow1(keyboardPanel, keyBoardKeys);
@@ -160,6 +170,9 @@ public class TypingGUI {
         prepareKeyBoardRow3(keyboardPanel, keyBoardKeys);
         prepareKeyBoardRow4(keyboardPanel, keyBoardKeys);
         prepareKeyBoardRow5(keyboardPanel, keyBoardKeys);
+
+        keyboardPanel.setSize(new Dimension(windowWidth - 10, 300));
+        keyboardPanel.setMaximumSize(new Dimension(windowWidth - 10, 300));
 
         panel.add(keyboardPanel);
     }
@@ -239,12 +252,12 @@ public class TypingGUI {
 
         for (int i = 0; i < keyBoardKeys[4].length; i++) {
             int width = keyWidth * 2;
-            if(i == 0) {
+            if (i == 0) {
                 JLabel emptyLabel = new JLabel("                                                  ");
                 row.add(emptyLabel);
 
                 width *= 6;
-            } else if(i == 1) {
+            } else if (i == 1) {
                 JLabel emptyLabel = new JLabel("                   ");
                 row.add(emptyLabel);
             }
