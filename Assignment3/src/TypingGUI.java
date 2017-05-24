@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by henrybear327 on 5/19/17.
@@ -93,18 +94,26 @@ public class TypingGUI implements KeyListener {
             case KeyEvent.VK_UP:
                 debugString = "up\n";
                 text = "↑";
+                if (needAction && blocking == false)
+                    textAreaString += text;
                 break;
             case KeyEvent.VK_DOWN:
                 debugString = "down\n";
                 text = "↓";
+                if (needAction && blocking == false)
+                    textAreaString += text;
                 break;
             case KeyEvent.VK_LEFT:
                 debugString = "left\n";
                 text = "←";
+                if (needAction && blocking == false)
+                    textAreaString += text;
                 break;
             case KeyEvent.VK_RIGHT:
                 debugString = "right\n";
                 text = "→";
+                if (needAction && blocking == false)
+                    textAreaString += text;
                 break;
             case KeyEvent.VK_TAB:
                 debugString = "tab\n";
@@ -220,7 +229,7 @@ public class TypingGUI implements KeyListener {
             public void actionPerformed(ActionEvent e) {
                 int cnt = 0;
 
-                HashMap<Character, Integer> wrongList = new HashMap<>();
+                TreeMap<Character, Integer> wrongList = new TreeMap<>();
                 for (int i = 0; i < stringToCompareWith[stringToCompareWithIndex].length() && i < textAreaString.length(); i++)
                     if (stringToCompareWith[stringToCompareWithIndex].charAt(i) == textAreaString.charAt(i)) {
                         cnt++;
@@ -308,7 +317,11 @@ public class TypingGUI implements KeyListener {
     }
 
     private JButton createButton(String text, int width) {
-        JButton plainButton = new JButton(text);
+        JButton plainButton;
+        if (text.equalsIgnoreCase(" "))
+            plainButton = new JButton("Space");
+        else
+            plainButton = new JButton(text);
         plainButton.setPreferredSize(new Dimension(width, keyHeight));
 
         originalColor = plainButton.getBackground();
