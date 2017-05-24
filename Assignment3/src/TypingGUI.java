@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by henrybear327 on 5/19/17.
@@ -218,10 +219,25 @@ public class TypingGUI implements KeyListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int cnt = 0;
+
+                HashMap<Character, Integer> wrongList = new HashMap<>();
                 for(int i = 0; i < stringToCompareWith[stringToCompareWithIndex].length() && i < textAreaString.length(); i++)
-                    if(stringToCompareWith[stringToCompareWithIndex].charAt(i) == textAreaString.charAt(i))
+                    if(stringToCompareWith[stringToCompareWithIndex].charAt(i) == textAreaString.charAt(i)) {
                         cnt++;
-                JOptionPane.showMessageDialog(null, cnt + " / " + stringToCompareWith[stringToCompareWithIndex].length());
+                    } else {
+                        int tmp = wrongList.getOrDefault(stringToCompareWith[stringToCompareWithIndex].charAt(i), 0);
+                        tmp++;
+                        wrongList.put(stringToCompareWith[stringToCompareWithIndex].charAt(i), tmp);
+                    }
+
+                String message = cnt + " / " + stringToCompareWith[stringToCompareWithIndex].length() + "\n";
+                for (Map.Entry<Character, Integer> entry : wrongList.entrySet()) {
+                    System.out.println(entry.getKey() + " " + entry.getValue());
+
+                    message += "Key " + entry.getKey() + " has been typed wrongly for " + entry.getValue() + " time" + (entry.getValue() == 1 ? "\n" : "s\n");
+                }
+
+                JOptionPane.showMessageDialog(null, message);
                 panel.requestFocusInWindow();
             }
         });
