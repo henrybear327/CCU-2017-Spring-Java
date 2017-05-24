@@ -145,7 +145,7 @@ public class TypingGUI implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         boolean blocking = false;
-        if(stringToCompareWith[stringToCompareWithIndex].length() <= textAreaString.length())
+        if (stringToCompareWith[stringToCompareWithIndex].length() <= textAreaString.length())
             blocking = true;
         String text = getKeyText(e, true, blocking);
 
@@ -221,8 +221,8 @@ public class TypingGUI implements KeyListener {
                 int cnt = 0;
 
                 HashMap<Character, Integer> wrongList = new HashMap<>();
-                for(int i = 0; i < stringToCompareWith[stringToCompareWithIndex].length() && i < textAreaString.length(); i++)
-                    if(stringToCompareWith[stringToCompareWithIndex].charAt(i) == textAreaString.charAt(i)) {
+                for (int i = 0; i < stringToCompareWith[stringToCompareWithIndex].length() && i < textAreaString.length(); i++)
+                    if (stringToCompareWith[stringToCompareWithIndex].charAt(i) == textAreaString.charAt(i)) {
                         cnt++;
                     } else {
                         int tmp = wrongList.getOrDefault(stringToCompareWith[stringToCompareWithIndex].charAt(i), 0);
@@ -288,10 +288,10 @@ public class TypingGUI implements KeyListener {
         keyboardPanel.setLayout(new GridLayout(5, 1, 0, 0));
 
         String[][] keyBoardKeys = {
-                {"~", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "+", "Backspace"},
+                {"~", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "+", "=", "Backspace"},
                 {"Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\"},
-                {"Caps", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "\"", "Enter"},
-                {"Shift", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "?", "↑"},
+                {"Caps", "A", "S", "D", "F", "G", "H", "J", "K", "L", ":", ";", "'", "\"", "Enter"},
+                {"Shift", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "?", "↑"},
                 {" ", "←", "↓", "→"}
         };
 
@@ -318,12 +318,29 @@ public class TypingGUI implements KeyListener {
         return plainButton;
     }
 
+    private JButton createButton(String text, String text2, int width) {
+        JButton plainButton = new JButton(text + text2);
+        plainButton.setPreferredSize(new Dimension(width, keyHeight));
+
+        originalColor = plainButton.getBackground();
+
+        buttonMap.put(text, plainButton);
+        buttonMap.put(text2, plainButton);
+
+        return plainButton;
+    }
+
     private void prepareKeyBoardRow1(JPanel keyboardPanel, String[][] keyBoardKeys) {
         JPanel row = new JPanel();
         row.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         for (int i = 0; i < keyBoardKeys[0].length; i++) {
             int width = keyWidth * 2;
+            if (i == keyBoardKeys[0].length - 3) {
+                row.add(createButton(keyBoardKeys[0][i], keyBoardKeys[0][i + 1], width));
+                i++;
+                continue;
+            }
             if (i == keyBoardKeys[0].length - 1)
                 width = keyWidth * 6;
             row.add(createButton(keyBoardKeys[0][i], width));
@@ -354,7 +371,15 @@ public class TypingGUI implements KeyListener {
             int width = keyWidth * 2;
             if (i == 0)
                 width = keyWidth * 3;
-            else if (i == keyBoardKeys[2].length - 1)
+            else if (i == keyBoardKeys[2].length - 5) {
+                row.add(createButton(keyBoardKeys[2][i], keyBoardKeys[2][i + 1], width));
+                i++;
+                continue;
+            } else if (i == keyBoardKeys[2].length - 3) {
+                row.add(createButton(keyBoardKeys[2][i], keyBoardKeys[2][i + 1], width));
+                i++;
+                continue;
+            } else if (i == keyBoardKeys[2].length - 1)
                 width = keyWidth * 4;
             row.add(createButton(keyBoardKeys[2][i], width));
         }
@@ -373,6 +398,10 @@ public class TypingGUI implements KeyListener {
             else if (i == keyBoardKeys[3].length - 1) {
                 JLabel emptyLabel = new JLabel("      ");
                 row.add(emptyLabel);
+            } else if (i == keyBoardKeys[3].length - 3) {
+                row.add(createButton(keyBoardKeys[3][i], keyBoardKeys[3][i + 1], width));
+                i++;
+                continue;
             }
             row.add(createButton(keyBoardKeys[3][i], width));
         }
