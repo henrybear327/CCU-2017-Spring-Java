@@ -31,7 +31,7 @@ public class Main {
             if (i.length() > 0) {
                 int cur = cnt.getOrDefault(i, 0);
                 cur += 1;
-                cnt.put(i, cur);qqg
+                cnt.put(i, cur);
             }
         }
 
