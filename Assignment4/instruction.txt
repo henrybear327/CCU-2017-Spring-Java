@@ -1,0 +1,3 @@
+Textbook 
+1. Exercise 16.16 (Counting Duplicate Words)
+2. Exercise 16.20 (Soring Words with a TreeSet)
