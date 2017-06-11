@@ -50,6 +50,7 @@ public class Main {
     public static void main(String[] args) {
         // here i am i am here friend
         // here i! am  i am here friend
+        //    a   A    A   a! a!
         Scanner sc = new Scanner(System.in);
 
         solve(sc.nextLine());
