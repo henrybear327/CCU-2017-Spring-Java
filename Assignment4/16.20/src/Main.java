@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("Please enter a line of text: ");
         String input = sc.nextLine();
         String[] splited = input.split(" ");
 

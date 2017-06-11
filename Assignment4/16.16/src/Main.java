@@ -51,6 +51,8 @@ public class Main {
         // here i am i am here friend
         // here i! am  i am here friend
         //    a   A    A   a! a!
+
+        System.out.println("Please enter a line of text: ");
         Scanner sc = new Scanner(System.in);
 
         solve(sc.nextLine());
